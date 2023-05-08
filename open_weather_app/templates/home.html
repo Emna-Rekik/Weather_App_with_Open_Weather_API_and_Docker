@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous"
+    />
+    <style>
+      body {
+        background-image: url("https://miro.medium.com/v2/resize:fit:1400/1*GsImz-edoeuqCMfKxDus0w.jpeg");
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+    </style>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Current Wheather Website</title>
+  </head>
+  <body>
+    <section class="vh-100" style="background-image: url("weather.png")">
+      <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col-md-8 col-lg-6 col-xl-4">
+            <div class="card" style="color: #4b515d; border-radius: 35px">
+              <div class="card-body p-4">
+                <div class="d-flex">
+                  <h6 class="flex-grow-1" style="font-family: 'Courier New', Courier, monospace; color: #1d509c; font-size: 20px; font-weight: bold;">Welcome,{{username}}</h6>
+                  <i class="fa fa-history" style="font-size:36px" onclick="window.location.href='/historique'"></i>
+                </div>
+                <div class="d-flex flex-column text-center mt-5 mb-4">
+                  <form action="/home" method="post">
+                    <div class="col-xs-2">
+                      <input
+                      type="text"
+                      class="form-control" 
+                      name="city"
+                      placeholder="Enter a Place. Example:- London"
+                    />
+                    </div>
+                    <br>
+                    
+                    <button type="submit" class="btn btn-outline-primary">CHECK</button>
+                  </form>
+                </div>
+                <div class="d-flex flex-column text-center mt-2 mb-2">
+                  {% if sweetalert %}
+                  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>Invalid ! </strong> Please write a valid city name.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+                  {% endif %}
+                  <div>
+                    {% if city_name %}
+                    <div class="show-result">
+                      <div class="output">
+                        <h3
+                          style="
+                            color: rgb(15, 99, 224);
+                            font-size: 35px;
+                            font-weight: bold;
+                            font-family: 'system-ui', Courier, monospace;
+                            text-transform: uppercase;
+                          "
+                        >
+                          {{city_name}}
+                        </h3>
+                      </div>
+                      <br />
+                      <div class="output">
+                        <h3
+                          style="
+                            color: #6da1f0;
+                            font-size: 22px;
+                            font-weight: bold;
+                            font-family: 'system-ui', Courier, monospace;
+                          "
+                        >
+                          WEATHER: {{condition}}
+                        </h3>
+                      </div>
+                      {% if condition=='Rain' %}
+                      <div class="output-logo">
+                        <img
+                          src="{{url_for('static', filename='img/rain_light.png')}}"
+                          width="200"
+                          height="200"
+                          margin="auto"
+                          display="block"
+                        />
+                      </div>
+                      {% endif %} {% if condition=='Clear' %}
+                      <div class="output-logo">
+                        <img
+                          src="{{url_for('static', filename='img/clear-sky.png')}}"
+                          width="200"
+                          height="200"
+                          margin="auto"
+                          display="block"
+                        />
+                      </div>
+                      {% endif %} {% if condition=='Clouds' %}
+                      <div class="output-logo">
+                        <img
+                          src="{{url_for('static', filename='img/clouds.png')}}"
+                          width="200"
+                          height="200"
+                          margin="auto"
+                          display="block"
+                        />
+                      </div>
+                      {% endif %} {% if condition=='Snow' %}
+                      <div class="output-logo">
+                        <img
+                          src="{{url_for('static', filename='img/snow.png')}}"
+                          width="200"
+                          height="200"
+                          margin="auto"
+                          display="block"
+                        />
+                      </div>
+                      {% endif %} {% if condition=='Thunderstorm' %}
+                      <div class="output-logo">
+                        <img
+                          src="{{url_for('static', filename='img/thunder_storm.png')}}"
+                          width="200"
+                          height="200"
+                          margin="auto"
+                          display="block"
+                        />
+                        
+                      </div>
+                      
+                      {% endif %} {% if condition=='Haze' %}
+                      <div class="output-logo">
+                        <img
+                          src="{{url_for('static', filename='img/haze.png')}}"
+                          width="200"
+                          height="200"
+                          margin="auto"
+                          display="block"
+                        />
+                      </div>
+                      {% endif %}
+                      <div>{{desc}}</div>
+                      <br>
+                      <div>
+                        <h3
+                          style="
+                            color: #6da1f0;
+                            font-size: 22px;
+                            font-weight: bold;
+                            font-family: 'system-ui', Courier, monospace;
+                          "
+                        >
+                          TEMPERATURE: {{temperature}} °C
+                        </h3>
+                      </div>
+                      <div>
+                        <h3
+                          style="
+                            color: #6da1f0;
+                            font-size: 22px;
+                            font-weight: bold;
+                            font-family: 'system-ui', Courier, monospace;
+                          "
+                        >
+                          HUMIDITY: {{humidity}} %
+                        </h3>
+                      </div>
+                      <div>
+                        <h3
+                          style="
+                            color: #6da1f0;
+                            font-size: 22px;
+                            font-weight: bold;
+                            font-family: 'system-ui', Courier, monospace;
+                          "
+                        >
+                          PRESSURE: {{pressure}} mb
+                        </h3>
+                      </div>
+                      <div>
+                        <h3
+                          style="
+                            color: #6da1f0;
+                            font-size: 22px;
+                            font-weight: bold;
+                            font-family: 'system-ui', Courier, monospace;
+                          "
+                        >
+                          Wind Speed: {{wind}} Km/h
+                        </h3>
+                      </div>
+                    </div>
+                    {% else %}
+                    <h3
+                      style="
+                        color: rgb(91, 133, 223);
+                        padding: 30px;
+                        font-size: 30px;
+                        font-weight: bold;
+                        font-family:'system-ui', Courier, monospace;
+                        text-transform: uppercase;
+                      "
+                    >
+                      Enter A City Name To Check Current Wheather
+                    </h3>
+                    {% endif %}
+                  </div>
+                  {% if city_name %}
+		  <button class="btn btn-outline-primary" onclick="window.location.href='/prediction?city={{ city_name }}'">Prediction</button>
+		  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <i class="fa fa-sign-out" aria-hidden="true" style="font-size:50px; position: absolute; left: 1700px; top: 750px;" onclick="window.location.href='/logout'"></i>
+    </section>
+  </body>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+    crossorigin="anonymous"
+  ></script>
+</html>
