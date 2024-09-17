@@ -67,8 +67,8 @@ def send_email(topic, recipient, condition, humidity):
         value = int(message.value.decode())
         if value > 30:
             # Set up email details
-            email = 'lilia.krichen@gmail.com'
-            password = 'bpqeyalsmbsitbpk'
+            email = os.getenv('EMAIL')
+            password = os.getenv('PASSWORD')
             subject = f'{topic} temperature Alert!!'
             body = f"The current temperature in {topic} is {value}C. It's seems very hot Today"
 
@@ -185,8 +185,8 @@ def send_email(topic, recipient, condition, humidity):
             consumer.close()	
         else:
             # Set up email details
-            email = 'lilia.krichen@gmail.com'
-            password = 'bpqeyalsmbsitbpk'
+            email = os.getenv('EMAIL')
+            password = os.getenv('PASSWORD')
             subject = f'{topic} temperature'
             body = f'The current temperature in {topic} is {value}C.'
             photo_path2 = '/home/emna/Bureau/kafka_test/OpenWeather.jpg'
