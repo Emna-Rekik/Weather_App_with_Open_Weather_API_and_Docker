@@ -142,7 +142,7 @@ def login():
     
 @app.route('/prediction', methods=["POST", "GET"])
 def prediction():
-    API_KEY = '94d3b2c21850c2a5da8ad81d24b4480e'
+    API_KEY = os.getenv('API_URL')
     
     CITY = request.args.get('city')
     print(CITY)
